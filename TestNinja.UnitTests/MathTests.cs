@@ -1,4 +1,5 @@
-﻿using System.Security.Policy;
+﻿using System.Linq;
+using System.Security.Policy;
 using NUnit.Framework;
 using TestNinja.Fundamentals;
 
@@ -44,6 +45,51 @@ namespace TestNinja.UnitTests
             var result = _math.Max(firstNumber, secondNumber);
 
             Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void GetOddNumbers_LimitIsGreaterThanZero_ReturnOddNumbers()
+        {
+            const int limit = 10;
+            var expected = new int[]
+            {
+                1, 3, 5, 7, 9
+            };
+            
+            var result = _math.GetOddNumbers(limit);
+
+            Assert.That(result, Is.Not.Empty);
+            Assert.That(result.Count(), Is.EqualTo(5));
+            Assert.That(result, Does.Contain(1));
+            Assert.That(result, Does.Contain(3));
+            Assert.That(result, Does.Contain(5));
+            Assert.That(result, Does.Contain(7));
+            Assert.That(result, Does.Contain(9));
+
+            // To sum up all of the above assertions we can assert like
+            Assert.That(result, Is.EquivalentTo(expected));
+        }
+
+        [Test]
+        public void GetOddNumbers_LimitIsLessThanZero_ReturnEmptyCollection()
+        {
+            const int limit = -10;
+            var expected = new int[] {};
+
+            var result = _math.GetOddNumbers(limit);
+
+            Assert.That(result, Is.EquivalentTo(expected));
+        }
+
+        [Test]
+        public void GetOddNumbers_LimitIsZero_ReturnEmptyCollection()
+        {
+            const int limit = 0;
+            var expected = new int[] { };
+
+            var result = _math.GetOddNumbers(limit);
+
+            Assert.That(result, Is.EquivalentTo(expected));
         }
     }
 }
