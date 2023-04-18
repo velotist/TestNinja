@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Security.Policy;
+using NUnit.Framework;
 using TestNinja.Fundamentals;
 
 namespace TestNinja.UnitTests
@@ -6,44 +7,42 @@ namespace TestNinja.UnitTests
     [TestFixture]
     public class MathTests
     {
+        private Math _math;
+
+        [SetUp]
+        public void Setup()
+        {
+            _math = new Math();
+        }
+
         [Test]
         public void Add_WhenCalled_ReturnSumOfArguments()
         {
-            var math = new Math();
-            
-            var result = math.Add(1, 2);
+            var result = _math.Add(1, 2);
 
             Assert.That(result, Is.EqualTo(3));
         }
 
         [Test]
-        public void Max_IsFirstArgument_ReturnFirstArgument()
+        [TestCase(2,1,2)]
+        [TestCase(5, 2, 5)]
+        [TestCase(1, 2, 2)]
+        [TestCase(3, 5, 5)]
+        public void Max_WhenCalled_ReturnGreaterArgument(int firstNumber, int secondNumber, int expected)
         {
-            var math = new Math();
+            var result = _math.Max(firstNumber, secondNumber);
 
-            var result = math.Max(2, 1);
-
-            Assert.That(result, Is.EqualTo(2));
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
-        public void Max_IsSecondArgument_ReturnSecondArgument()
+        [TestCase(2, 2, 2)]
+        [TestCase(9, 9, 9)]
+        public void Max_AreBothArguments_ReturnSameArgument(int firstNumber, int secondNumber, int expected)
         {
-            var math = new Math();
+            var result = _math.Max(firstNumber, secondNumber);
 
-            var result = math.Max(1, 2);
-
-            Assert.That(result, Is.EqualTo(2));
-        }
-
-        [Test]
-        public void Max_AreBothArguments_ReturnSameArgument()
-        {
-            var math = new Math();
-
-            var result = math.Max(2, 2);
-
-            Assert.That(result, Is.EqualTo(2));
+            Assert.That(result, Is.EqualTo(expected));
         }
     }
 }
