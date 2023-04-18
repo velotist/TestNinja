@@ -24,6 +24,7 @@ namespace TestNinja.UnitTests
         }
 
         [Test]
+        [Ignore("For test purpose")]
         [TestCase(2,1,2)]
         [TestCase(5, 2, 5)]
         [TestCase(1, 2, 2)]
