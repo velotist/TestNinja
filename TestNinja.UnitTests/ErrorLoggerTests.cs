@@ -8,30 +8,44 @@ namespace TestNinja.UnitTests
     [TestFixture]
     public class ErrorLoggerTests
     {
+        private ErrorLogger _logger;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _logger = new ErrorLogger();
+        }
+
         [Test]
         public void Log_WhenCalled_SetLastErrorProperty()
         {
-            var logger = new ErrorLogger();
             const string errorMessage = "Some error message";
 
-            logger.Log(errorMessage);
+            _logger.Log(errorMessage);
 
-            Assert.That(logger.LastError, Is.EqualTo(errorMessage));
+            Assert.That(_logger.LastError, Is.EqualTo(errorMessage));
         }
 
         [Test]
         public void Log_ValidError_RaisesErrorLoggedEvent()
         {
-            var logger = new ErrorLogger();
             var mockedHandler = new Mock<EventHandler<Guid>>();
-            logger.ErrorLogged += mockedHandler.Object;
+            _logger.ErrorLogged += mockedHandler.Object;
             const string error = "Some error message";
 
-            logger.Log(error);
+            _logger.Log(error);
 
             mockedHandler
-                .Verify(e => e(logger, It.IsAny<Guid>()), Times.Once);
+                .Verify(e => e(_logger, It.IsAny<Guid>()), Times.Once);
         }
 
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void Log_InvalidError_ThrowArgumentNullException(string error)
+        {
+            Assert.That(() => _logger.Log(error), Throws.ArgumentNullException);
+        }
     }
 }
