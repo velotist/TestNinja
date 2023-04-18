@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace TestNinja.Fundamentals
 {
@@ -11,11 +10,11 @@ namespace TestNinja.Fundamentals
         
         public void Log(string error)
         {
-            if (String.IsNullOrWhiteSpace(error))
+            if (string.IsNullOrWhiteSpace(error))
                 throw new ArgumentNullException();
-                
-            LastError = error; 
-            
+
+            LastError = error;
+
             // Write the log to a storage
             // ...
 
