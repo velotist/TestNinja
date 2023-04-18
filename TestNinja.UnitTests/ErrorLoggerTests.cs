@@ -39,6 +39,19 @@ namespace TestNinja.UnitTests
                 .Verify(e => e(_logger, It.IsAny<Guid>()), Times.Once);
         }
 
+        // This test is another way to test if an event has been risen
+        [Test]
+        public void Log_AnotherValidError_RaisesErrorLoggedEvent()
+        {
+            var id = Guid.Empty;
+            _logger.ErrorLogged += (sender, args) => { id = args; };
+            const string error = "Some error message";
+
+            _logger.Log(error);
+
+            Assert.That(id, Is.Not.EqualTo(Guid.Empty));
+        }
+
         [Test]
         [TestCase(null)]
         [TestCase("")]
