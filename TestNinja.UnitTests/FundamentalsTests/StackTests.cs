@@ -1,9 +1,6 @@
 ﻿using NUnit.Framework;
-using System.Collections;
-using System.Collections.Generic;
-using TestNinja.Fundamentals;
 
-namespace TestNinja.UnitTests
+namespace TestNinja.UnitTests.FundamentalsTests
 {
     [TestFixture]
     public class StackTests

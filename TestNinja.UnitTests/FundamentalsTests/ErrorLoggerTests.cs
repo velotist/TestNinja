@@ -3,7 +3,7 @@ using Moq;
 using NUnit.Framework;
 using TestNinja.Fundamentals;
 
-namespace TestNinja.UnitTests
+namespace TestNinja.UnitTests.FundamentalsTests
 {
     [TestFixture]
     public class ErrorLoggerTests
