@@ -27,9 +27,8 @@ namespace TestNinja.Mocking
                     (from video in context.Videos
                     where !video.IsProcessed
                     select video).ToList();
-                
-                foreach (var v in videos)
-                    videoIds.Add(v.Id);
+
+                videoIds.AddRange(videos.Select(v => v.Id));
 
                 return String.Join(",", videoIds);
             }
