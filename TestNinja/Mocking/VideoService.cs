@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace TestNinja.Mocking
 {
-    public class VideoService
+    public sealed class VideoService
     {
         public string ReadVideoTitle()
         {
@@ -35,14 +35,14 @@ namespace TestNinja.Mocking
         }
     }
 
-    public class Video
+    public sealed class Video
     {
         public int Id { get; set; }
         public string Title { get; set; }
         public bool IsProcessed { get; set; }
     }
 
-    public class VideoContext : DbContext
+    public sealed class VideoContext : DbContext
     {
         public DbSet<Video> Videos { get; set; }
     }
