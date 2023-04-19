@@ -9,6 +9,24 @@ namespace TestNinja.Mocking
 {
     public sealed class VideoService
     {
+        public VideoService()
+        {
+            CreateVideoFile();
+        }
+
+        public void CreateVideoFile()
+        {
+            if (File.Exists("video.txt"))
+                return;
+
+            using (StreamWriter sw = File.CreateText("video.txt"))
+            {
+                sw.WriteLine("Hello");
+                sw.WriteLine("And");
+                sw.WriteLine("Welcome");
+            }
+        }
+
         public string ReadVideoTitle(IFileReader fileReader)
         {
             var str = fileReader.Read("video.txt");
