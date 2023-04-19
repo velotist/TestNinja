@@ -30,7 +30,7 @@ namespace TestNinja.Mocking
 
                 videoIds.AddRange(videos.Select(v => v.Id));
 
-                return String.Join(",", videoIds);
+                return string.Join(",", videoIds);
             }
         }
     }
