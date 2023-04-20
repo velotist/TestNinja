@@ -76,6 +76,7 @@
     <Compile Include="FundamentalsTests\MathTests.cs" />
     <Compile Include="FundamentalsTests\ReservationTests.cs" />
     <Compile Include="MockingTests\OrderServiceTests.cs" />
+    <Compile Include="MockingTests\ProductTests.cs" />
     <Compile Include="MockingTests\VideoServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FundamentalsTests\StackTests.cs" />
