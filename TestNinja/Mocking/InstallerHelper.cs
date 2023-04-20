@@ -4,26 +4,22 @@ namespace TestNinja.Mocking
 {
     public class InstallerHelper
     {
-        private readonly string _setupDestinationFile;
+        private readonly string _installerDestinationFileName;
         private readonly IFileDownloader _fileDownloader;
 
-        public InstallerHelper(IFileDownloader fileDownloader, string setupDestinationFile)
+        public InstallerHelper(IFileDownloader fileDownloader, string installerDestinationFileName)
         {
             _fileDownloader = fileDownloader;
-            _setupDestinationFile = setupDestinationFile;
+            _installerDestinationFileName = installerDestinationFileName;
         }
 
-
-        // Test cases:
-        // if download fails because of a WebException, method returns false
-        // if file was downloaded, method returns true
         public bool DownloadInstaller(string customerName, string installerName)
         {
             try
             {
                 _fileDownloader.DownloadFile(
                     $"http://example.com/{customerName}/{installerName}",
-                    _setupDestinationFile);
+                    _installerDestinationFileName);
 
                 return true;
             }
