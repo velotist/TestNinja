@@ -77,7 +77,7 @@ Now we can use this to create a fake implementation for our unit tests.
 - in our unit testing project we add a new class for example FakeFileReader
 > Hint: <p>older unit testing frameworks differentiate between mocks und stubs for faking. More modern frameworks don't differentiate and this is more practical. So instead of calling your class MockFileReader or StubFileReader we prefer to call it FakeFileReader.
 
-So now we have something like this in our unit testing project which we use in our unit tests:
+So now we have something like this in our unit testing project which we can use in our unit tests:
 ```
 public class FakeFileReader : IFileReader
 {
