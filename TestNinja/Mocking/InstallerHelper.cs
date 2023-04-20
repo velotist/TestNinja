@@ -17,9 +17,7 @@ namespace TestNinja.Mocking
             try
             {
                 client.DownloadFile(
-                    string.Format("http://example.com/{0}/{1}",
-                        customerName,
-                        installerName),
+                    $"http://example.com/{customerName}/{installerName}",
                     _setupDestinationFile);
 
                 return true;
