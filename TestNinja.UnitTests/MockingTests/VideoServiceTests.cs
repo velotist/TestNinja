@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
 using TestNinja.Mocking;
 
@@ -9,12 +11,14 @@ namespace TestNinja.UnitTests.MockingTests
     {
         private VideoService _service;
         private Mock<IFileReader> _mockFileReader;
+        private Mock<IVideoRepository> _mockVideoRepository;
 
         [SetUp]
         public void SetUp()
         {
             _mockFileReader = new Mock<IFileReader>();
-            _service = new VideoService(_mockFileReader.Object);
+            _mockVideoRepository = new Mock<IVideoRepository>();
+            _service = new VideoService(_mockFileReader.Object, _mockVideoRepository.Object);
         }
 
         [Test]
@@ -28,9 +32,35 @@ namespace TestNinja.UnitTests.MockingTests
         }
 
         [Test]
-        public void GetUnprocessedVideosAsCsv_WhenCalled_ReturnIds()
+        public void GetUnprocessedVideosAsCsv_FewVideosAreUnprocessed_ReturnIdsOfUnprocessedVideos()
         {
+            const string expected = "1,2,3";
+            IEnumerable<Video> unprocessedVideos = new List<Video> {
+                new Video { Id = 1 },
+                new Video { Id = 2 },
+                new Video { Id = 3 }
+            };
+            _mockVideoRepository.Setup(videoRepository =>
+                    videoRepository
+                        .GetUnprocessedVideos())
+                .Returns(unprocessedVideos);
 
+            var result = _service.GetUnprocessedVideosAsCsv();
+
+            Assert.That(result, Is.EquivalentTo(expected));
+        }
+
+        [Test]
+        public void GetUnprocessedVideosAsCsv_AllVideosAreProcessed_ReturnEmptyString()
+        {
+            const string expected = "";
+            _mockVideoRepository.Setup(videoRepository => videoRepository
+                        .GetUnprocessedVideos())
+                .Returns(new List<Video>());
+
+            var result = _service.GetUnprocessedVideosAsCsv();
+
+            Assert.That(result, Is.EquivalentTo(expected));
         }
     }
 }

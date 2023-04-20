@@ -40,11 +40,16 @@ namespace TestNinja.Mocking
             return video == null ? "Error parsing the video." : video.Title;
         }
 
+        // Test cases are:
+        // an empty list [] =>
+        // should return an empty string ""
+        // a list with three unprocessed videos [{},{},{}] =>
+        // should return three videoIds in a string like "1,2,3"
         public string GetUnprocessedVideosAsCsv()
         {
             var videoIds = new List<int>();
             var videos = _videoRepository.GetUnprocessedVideos();
-            videoIds.AddRange(videos.Select(v => v.Id));
+            videoIds.AddRange(videos.Select(video => video.Id));
 
             return string.Join(",", videoIds);
             
