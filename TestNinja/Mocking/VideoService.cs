@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -10,11 +9,14 @@ namespace TestNinja.Mocking
     public sealed class VideoService
     {
         private readonly IFileReader _fileReader;
-
-        public VideoService(IFileReader fileReader = null)
+        private readonly IVideoRepository _videoRepository;
+        
+        // ToDo: use Autofac
+        public VideoService(IFileReader fileReader = null, IVideoRepository videoRepository = null)
         {
             CreateVideoFile();
             _fileReader = fileReader ?? new FileReader();
+            _videoRepository = videoRepository ?? new VideoRepository();
         }
 
         public void CreateVideoFile()
@@ -41,18 +43,11 @@ namespace TestNinja.Mocking
         public string GetUnprocessedVideosAsCsv()
         {
             var videoIds = new List<int>();
+            var videos = _videoRepository.GetUnprocessedVideos();
+            videoIds.AddRange(videos.Select(v => v.Id));
+
+            return string.Join(",", videoIds);
             
-            using (var context = new VideoContext())
-            {
-                var videos = 
-                    (from video in context.Videos
-                    where !video.IsProcessed
-                    select video).ToList();
-
-                videoIds.AddRange(videos.Select(v => v.Id));
-
-                return string.Join(",", videoIds);
-            }
         }
     }
 
