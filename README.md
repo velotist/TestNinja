@@ -1,4 +1,4 @@
-# TestNinjaStarter
+# TestNinja
 
 *Based on*
 [Mosh Hamedani - Unit Testing for C# Developers](https://www.udemy.com/course/unit-testing-csharp/)
