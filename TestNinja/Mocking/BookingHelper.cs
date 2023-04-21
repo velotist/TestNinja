@@ -24,7 +24,6 @@ namespace TestNinja.Mocking
             if (booking.Status == "Cancelled")
                 return string.Empty;
 
-            // bool overlap = tStartA < tEndB && tStartB < tEndA;
             var bookings = repository.GetActiveBookings(booking.Id);
             var overlappingBooking =
                 bookings.FirstOrDefault(
