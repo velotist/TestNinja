@@ -34,8 +34,8 @@ namespace TestNinja.Mocking
                 }
                 catch (Exception e)
                 {
-                    XtraMessageBox.Show(e.Message, $"Email failure: {emailAddress}",
-                        MessageBoxButtons.OK);
+                    ExtraMessageBox.Show(e.Message, $"Email failure: {emailAddress}",
+                        MessageBoxButtons.Ok);
                 }
             }
 
@@ -93,10 +93,10 @@ namespace TestNinja.Mocking
 
     public enum MessageBoxButtons
     {
-        OK
+        Ok
     }
 
-    public class XtraMessageBox
+    public class ExtraMessageBox
     {
         public static void Show(string s, string housekeeperStatements, MessageBoxButtons ok)
         {
@@ -125,7 +125,7 @@ namespace TestNinja.Mocking
     public enum DialogResult
     {
         Abort,
-        OK
+        Ok
     }
 
     public class SystemSettingsHelper
