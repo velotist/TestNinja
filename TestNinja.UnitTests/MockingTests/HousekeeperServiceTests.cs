@@ -18,6 +18,7 @@ namespace TestNinja.UnitTests.MockingTests
         private HousekeeperService _service;
         private readonly DateTime _statementDate = new DateTime(2023, 1, 1);
         private Housekeeper _housekeeper;
+        private string _filename;
 
         [SetUp]
         public void SetUp()
@@ -79,6 +80,57 @@ namespace TestNinja.UnitTests.MockingTests
                             _housekeeper.Oid,
                             _housekeeper.FullName,
                             _statementDate),
+                    Times.Never);
+        }
+
+        [Test]
+        public void SendStatementEmails_WhenCalled_EmailStatement()
+        {
+            _filename = "a";
+            _statementGenerator
+                .Setup(statementGenerator =>
+                    statementGenerator
+                        .SaveStatement(
+                            _housekeeper.Oid,
+                            _housekeeper.FullName,
+                            _statementDate))
+                .Returns(_filename);
+
+            _service.SendStatementEmails(_statementDate);
+
+            _emailSender.Verify(emailSender =>
+                emailSender
+                    .EmailFile(
+                        _housekeeper.Email,
+                        _housekeeper.StatementEmailBody, 
+                        _filename,
+                        It.IsAny<string>()));
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase(null)]
+        public void SendStatementEmails_NoValidStatementFilename_ShouldNotEmailStatement(string filename)
+        {
+            _statementGenerator
+                .Setup(statementGenerator =>
+                    statementGenerator
+                        .SaveStatement(
+                            _housekeeper.Oid,
+                            _housekeeper.FullName,
+                            _statementDate))
+                .Returns(filename);
+
+            _service.SendStatementEmails(_statementDate);
+
+            _emailSender
+                .Verify(emailSender =>
+                        emailSender.EmailFile(
+                            It.IsAny<string>(),
+                            It.IsAny<string>(),
+                            It.IsAny<string>(),
+                            It.IsAny<string>()),
                     Times.Never);
         }
     }
