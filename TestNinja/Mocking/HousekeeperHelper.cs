@@ -31,7 +31,10 @@ namespace TestNinja.Mocking
                 if (housekeeper.Email == null)
                     continue;
 
-                var statementFilename = _statementGenerator.SaveStatement(housekeeper.Oid, housekeeper.FullName, statementDate);
+                var statementFilename = _statementGenerator.SaveStatement(
+                    housekeeper.Oid,
+                    housekeeper.FullName,
+                    statementDate);
 
                 if (string.IsNullOrWhiteSpace(statementFilename))
                     continue;
@@ -41,12 +44,15 @@ namespace TestNinja.Mocking
 
                 try
                 {
-                    _emailSender.EmailFile(emailAddress, emailBody, statementFilename,
+                    _emailSender.EmailFile(emailAddress,
+                        emailBody,
+                        statementFilename,
                         $"Sandpiper Statement {statementDate:yyyy-MM} {housekeeper.FullName}");
                 }
                 catch (Exception e)
                 {
-                    _extraMessageBox.Show(e.Message, $"Email failure: {emailAddress}",
+                    _extraMessageBox.Show(e.Message,
+                        $"Email failure: {emailAddress}",
                         MessageBoxButtons.Ok);
                 }
             }
