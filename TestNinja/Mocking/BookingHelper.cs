@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace TestNinja.Mocking
 {
@@ -25,22 +23,5 @@ namespace TestNinja.Mocking
 
             return overlappingBooking == null ? string.Empty : overlappingBooking.Reference;
         }
-    }
-
-    public class UnitOfWork
-    {
-        public IQueryable<T> Query<T>()
-        {
-            return new List<T>().AsQueryable();
-        }
-    }
-
-    public class Booking
-    {
-        public string Status { get; set; }
-        public int Id { get; set; }
-        public DateTime ArrivalDate { get; set; }
-        public DateTime DepartureDate { get; set; }
-        public string Reference { get; set; }
     }
 }

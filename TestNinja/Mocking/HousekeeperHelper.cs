@@ -6,13 +6,19 @@ using System.Text;
 
 namespace TestNinja.Mocking
 {
-    public static class HousekeeperHelper
+    public class HousekeeperHelper
     {
-        private static readonly UnitOfWork UnitOfWork = new UnitOfWork();
+        private readonly IUnitOfWork _unitOfWork;
 
-        public static bool SendStatementEmails(DateTime statementDate)
+        // For changing the signature of the class, we assume that we don't create breaking changes
+        public HousekeeperHelper(IUnitOfWork unitOfWork)
         {
-            var housekeepers = UnitOfWork.Query<Housekeeper>();
+            _unitOfWork = unitOfWork;
+        }
+
+        public bool SendStatementEmails(DateTime statementDate)
+        {
+            var housekeepers = _unitOfWork.Query<Housekeeper>();
 
             foreach (var housekeeper in housekeepers)
             {
