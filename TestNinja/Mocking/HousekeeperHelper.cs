@@ -30,11 +30,11 @@ namespace TestNinja.Mocking
                 try
                 {
                     EmailFile(emailAddress, emailBody, statementFilename,
-                        string.Format("Sandpiper Statement {0:yyyy-MM} {1}", statementDate, housekeeper.FullName));
+                        $"Sandpiper Statement {statementDate:yyyy-MM} {housekeeper.FullName}");
                 }
                 catch (Exception e)
                 {
-                    XtraMessageBox.Show(e.Message, string.Format("Email failure: {0}", emailAddress),
+                    XtraMessageBox.Show(e.Message, $"Email failure: {emailAddress}",
                         MessageBoxButtons.OK);
                 }
             }
@@ -53,7 +53,7 @@ namespace TestNinja.Mocking
 
             var filename = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                string.Format("Sandpiper Statement {0:yyyy-MM} {1}.pdf", statementDate, housekeeperName));
+                $"Sandpiper Statement {statementDate:yyyy-MM} {housekeeperName}.pdf");
 
             report.ExportToPdf(filename);
 
