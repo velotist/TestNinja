@@ -22,7 +22,7 @@ namespace TestNinja.Mocking
             _unitOfWork = unitOfWork;
         }
 
-        public bool SendStatementEmails(DateTime statementDate)
+        public void SendStatementEmails(DateTime statementDate)
         {
             var housekeepers = _unitOfWork.Query<Housekeeper>();
 
@@ -56,8 +56,6 @@ namespace TestNinja.Mocking
                         MessageBoxButtons.Ok);
                 }
             }
-
-            return true;
         }
     }
 
