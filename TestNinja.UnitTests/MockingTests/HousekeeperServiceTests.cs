@@ -68,7 +68,7 @@ namespace TestNinja.UnitTests.MockingTests
         [TestCase("")]
         [TestCase(" ")]
         [TestCase(null)]
-        public void SendStatementEmails_HousekeeperEmailIsEmpty_ShouldNotGenerateStatements(string email)
+        public void SendStatementEmails_NoValidHousekeeperEmail_ShouldNotGenerateStatements(string email)
         {
             _housekeeper.Email = email;
 
