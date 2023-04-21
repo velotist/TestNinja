@@ -11,14 +11,6 @@ namespace TestNinja.Mocking
         // Here is a discrepancy: often DI frameworks do not have the possibility to inject via parameter
         // In our case we assume that the DI framework has the possibility and therefore
         // => we use the way to inject via parameter
-
-        // Test cases:
-        // when booking status is cancelled,
-        // => method should return empty string
-        // when there is no overlapping booking,
-        // => method should return empty string
-        // when there is an overlapping booking,
-        // => method should return the reference of the overlapping booking
         public static string OverlappingBookingsExist(Booking booking, IBookingRepository repository)
         {
             if (booking.Status == "Cancelled")
