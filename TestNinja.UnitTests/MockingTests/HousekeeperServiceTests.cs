@@ -52,7 +52,7 @@ namespace TestNinja.UnitTests.MockingTests
         }
 
         [Test]
-        public void SendStatementEmails_WhenCalled_SendEmails()
+        public void SendStatementEmails_WhenCalled_GenerateStatements()
         {
             _service.SendStatementEmails(_statementDate);
 
