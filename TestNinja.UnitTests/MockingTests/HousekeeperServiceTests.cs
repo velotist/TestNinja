@@ -65,7 +65,7 @@ namespace TestNinja.UnitTests.MockingTests
         }
 
         [Test]
-        public void SendStatementEmails_HousekeeperHasNoEmail_GenerateStatements()
+        public void SendStatementEmails_HousekeeperHasNoEmail_ShouldNotGenerateStatements()
         {
             _housekeeper.Email = null;
 
