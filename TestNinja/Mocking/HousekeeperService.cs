@@ -2,7 +2,11 @@ using System;
 
 namespace TestNinja.Mocking
 {
-    public class HousekeeperHelper
+    // Application services are responsible for orchestration.
+    // This class is a perfect example for that.
+    // Because the method is orchestrating a few different things.
+    // So therefore we name this instead of HousekeeperHelper HousekeeperService.
+    public class HousekeeperService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IStatementGenerator _statementGenerator;
@@ -10,7 +14,7 @@ namespace TestNinja.Mocking
         private readonly IExtraMessageBox _extraMessageBox;
 
         // For changing the signature of the class, we assume that we don't create breaking changes
-        public HousekeeperHelper(
+        public HousekeeperService(
             IUnitOfWork unitOfWork,
             IStatementGenerator statementGenerator,
             IEmailSender emailSender,

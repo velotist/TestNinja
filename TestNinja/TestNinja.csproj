@@ -74,7 +74,7 @@
     <Compile Include="Mocking\EmployeeStorage.cs" />
     <Compile Include="Mocking\ExtraMessageBox.cs" />
     <Compile Include="Mocking\FileReader.cs" />
-    <Compile Include="Mocking\HousekeeperHelper.cs" />
+    <Compile Include="Mocking\HousekeeperService.cs" />
     <Compile Include="Mocking\IBookingRepository.cs" />
     <Compile Include="Mocking\IEmailSender.cs" />
     <Compile Include="Mocking\IEmployeeStorage.cs" />
