@@ -11,11 +11,11 @@ namespace TestNinja.UnitTests.MockingTests
     [TestFixture]
     public class HousekeeperServiceTests
     {
+        private HousekeeperService _service;
         private Mock<IUnitOfWork> _unitOfWork;
         private Mock<IStatementGenerator> _statementGenerator;
         private Mock<IEmailSender> _emailSender;
         private Mock<IExtraMessageBox> _messageBox;
-        private HousekeeperService _service;
         private readonly DateTime _statementDate = new DateTime(2023, 1, 1);
         private Housekeeper _housekeeper;
         private string _statementFilename;
@@ -105,6 +105,24 @@ namespace TestNinja.UnitTests.MockingTests
             VerifyEmailNotSent();
         }
 
+        [Test]
+        public void SendStatementEmails_EmailSendingFails_DisplayMessageBox()
+        {
+            _statementFilename = "d";
+
+            _emailSender.Setup(es =>
+                    es.EmailFile(
+                It.IsAny<string>(),
+                It.IsAny<string>(),
+                It.IsAny<string>(),
+                It.IsAny<string>()
+                )).Throws<Exception>();
+
+            _service.SendStatementEmails(_statementDate);
+
+            VerifyMessageBoxDisplayed();
+        }
+
         private void VerifyEmailSent()
         {
             _emailSender.Verify(emailSender =>
@@ -148,5 +166,15 @@ namespace TestNinja.UnitTests.MockingTests
                             _statementDate),
                     Times.Never);
         }
+
+        private void VerifyMessageBoxDisplayed()
+        {
+            _messageBox.Verify(messageBox =>
+                messageBox.Show(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    MessageBoxButtons.Ok));
+        }
+
     }
 }
