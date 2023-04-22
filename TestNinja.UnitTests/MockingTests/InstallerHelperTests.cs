@@ -1,23 +1,24 @@
 ﻿using System.Net;
 using Moq;
 using NUnit.Framework;
-using TestNinja.Mocking;
+using TestNinja.Mocking.Installer;
+using TestNinja.Mocking.Interfaces;
 
 namespace TestNinja.UnitTests.MockingTests
 {
     [TestFixture]
     public class InstallerHelperTests
     {
-        private InstallerHelper _installerHelper;
-        private Mock<IFileDownloader> _fileDownloader;
-        private readonly string _installerDestinationFileName = null;
-
         [SetUp]
         public void SetUp()
         {
             _fileDownloader = new Mock<IFileDownloader>();
             _installerHelper = new InstallerHelper(_fileDownloader.Object, _installerDestinationFileName);
         }
+
+        private InstallerHelper _installerHelper;
+        private Mock<IFileDownloader> _fileDownloader;
+        private readonly string _installerDestinationFileName = null;
 
 
         [Test]

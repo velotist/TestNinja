@@ -1,5 +1,5 @@
 ﻿using System;
-using TestNinja.Mocking;
+using TestNinja.Mocking.VideoService;
 
 namespace TestNinja
 {

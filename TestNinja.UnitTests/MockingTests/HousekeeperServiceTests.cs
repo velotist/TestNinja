@@ -3,23 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using TestNinja.Mocking;
-using IEmailSender = TestNinja.Mocking.IEmailSender;
+using TestNinja.Mocking.Housekeeper;
+using TestNinja.Mocking.Interfaces;
 
 namespace TestNinja.UnitTests.MockingTests
 {
     [TestFixture]
     public class HousekeeperServiceTests
     {
-        private HousekeeperService _service;
-        private Mock<IUnitOfWork> _unitOfWork;
-        private Mock<IStatementGenerator> _statementGenerator;
-        private Mock<IEmailSender> _emailSender;
-        private Mock<IExtraMessageBox> _messageBox;
-        private readonly DateTime _statementDate = new DateTime(2023, 1, 1);
-        private Housekeeper _housekeeper;
-        private string _statementFilename;
-
         [SetUp]
         public void SetUp()
         {
@@ -53,13 +44,22 @@ namespace TestNinja.UnitTests.MockingTests
 
             _emailSender = new Mock<IEmailSender>();
             _messageBox = new Mock<IExtraMessageBox>();
-            
+
             _service = new HousekeeperService(
                 _unitOfWork.Object,
                 _statementGenerator.Object,
                 _emailSender.Object,
                 _messageBox.Object);
         }
+
+        private HousekeeperService _service;
+        private Mock<IUnitOfWork> _unitOfWork;
+        private Mock<IStatementGenerator> _statementGenerator;
+        private Mock<IEmailSender> _emailSender;
+        private Mock<IExtraMessageBox> _messageBox;
+        private readonly DateTime _statementDate = new DateTime(2023, 1, 1);
+        private Housekeeper _housekeeper;
+        private string _statementFilename;
 
         [Test]
         public void SendStatementEmails_WhenCalled_GenerateStatements()
@@ -111,11 +111,11 @@ namespace TestNinja.UnitTests.MockingTests
             _statementFilename = "d";
 
             _emailSender.Setup(es =>
-                    es.EmailFile(
-                It.IsAny<string>(),
-                It.IsAny<string>(),
-                It.IsAny<string>(),
-                It.IsAny<string>()
+                es.EmailFile(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>()
                 )).Throws<Exception>();
 
             _service.SendStatementEmails(_statementDate);
@@ -175,6 +175,5 @@ namespace TestNinja.UnitTests.MockingTests
                     It.IsAny<string>(),
                     MessageBoxButtons.Ok));
         }
-
     }
 }

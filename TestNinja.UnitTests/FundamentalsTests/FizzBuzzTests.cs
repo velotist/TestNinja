@@ -7,7 +7,7 @@ namespace TestNinja.UnitTests.FundamentalsTests
     public class FizzBuzzTests
     {
         [Test]
-        [TestCase(3,"Fizz")]
+        [TestCase(3, "Fizz")]
         [TestCase(9, "Fizz")]
         [TestCase(99, "Fizz")]
         public void GetOutput_DivisibleOnlyByThree_ReturnFizz(int number, string expected)

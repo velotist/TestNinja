@@ -7,13 +7,13 @@ namespace TestNinja.UnitTests.FundamentalsTests
     [TestFixture]
     public class DemeritPointsCalculatorTests
     {
-        private DemeritPointsCalculator _calculator;
-
         [SetUp]
         public void SetUp()
         {
             _calculator = new DemeritPointsCalculator();
         }
+
+        private DemeritPointsCalculator _calculator;
 
         [Test]
         [TestCase(-10)]
@@ -21,14 +21,14 @@ namespace TestNinja.UnitTests.FundamentalsTests
         public void CalculateDemeritPoints_SpeedIsOutOfRange_ThrowsArgumentOutOfRangeException(int speed)
         {
             Assert.That(() =>
-                _calculator.CalculateDemeritPoints(speed),
+                    _calculator.CalculateDemeritPoints(speed),
                 Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
         [TestCase(0, 0)]
         [TestCase(64, 0)]
-        [TestCase(65,0)]
+        [TestCase(65, 0)]
         public void CalculateDemeritPoints_LessThanSpeedLimit_ReturnZero(int speed, int expectedPoints)
         {
             var result = _calculator.CalculateDemeritPoints(speed);

@@ -40,7 +40,7 @@ namespace TestNinja.UnitTests.FundamentalsTests
             {
                 MadeBy = user
             };
-            
+
             var result = reservation.CanBeCancelledBy(user);
 
             Assert.IsTrue(result);

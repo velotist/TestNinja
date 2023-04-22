@@ -8,13 +8,13 @@ namespace TestNinja.UnitTests.FundamentalsTests
     [TestFixture]
     public class ErrorLoggerTests
     {
-        private ErrorLogger _logger;
-
         [SetUp]
         public void SetUp()
         {
             _logger = new ErrorLogger();
         }
+
+        private ErrorLogger _logger;
 
         [Test]
         public void Log_WhenCalled_SetLastErrorProperty()

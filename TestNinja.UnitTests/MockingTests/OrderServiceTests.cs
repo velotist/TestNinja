@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
-using TestNinja.Mocking;
+using TestNinja.Mocking.Interfaces;
+using TestNinja.Mocking.OrderService;
 
 namespace TestNinja.UnitTests.MockingTests
 {
@@ -13,7 +14,7 @@ namespace TestNinja.UnitTests.MockingTests
             var mockStorage = new Mock<IStorage>();
             var orderService = new OrderService(mockStorage.Object);
             var order = new Order();
-            
+
             orderService.PlaceOrder(order);
 
             mockStorage.Verify(s => s.Store(order));

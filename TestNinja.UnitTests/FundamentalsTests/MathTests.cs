@@ -7,13 +7,13 @@ namespace TestNinja.UnitTests.FundamentalsTests
     [TestFixture]
     public class MathTests
     {
-        private Math _math;
-
         [SetUp]
         public void Setup()
         {
             _math = new Math();
         }
+
+        private Math _math;
 
         [Test]
         public void Add_WhenCalled_ReturnSumOfArguments()
@@ -25,7 +25,7 @@ namespace TestNinja.UnitTests.FundamentalsTests
 
         [Test]
         [Ignore("For test purpose")]
-        [TestCase(2,1,2)]
+        [TestCase(2, 1, 2)]
         [TestCase(5, 2, 5)]
         [TestCase(1, 2, 2)]
         [TestCase(3, 5, 5)]
@@ -50,11 +50,11 @@ namespace TestNinja.UnitTests.FundamentalsTests
         public void GetOddNumbers_LimitIsGreaterThanZero_ReturnOddNumbers()
         {
             const int limit = 10;
-            var expected = new int[]
+            var expected = new[]
             {
                 1, 3, 5, 7, 9
             };
-            
+
             var result = _math.GetOddNumbers(limit);
 
             Assert.That(result, Is.Not.Empty);
@@ -73,7 +73,7 @@ namespace TestNinja.UnitTests.FundamentalsTests
         public void GetOddNumbers_LimitIsLessThanZero_ReturnEmptyCollection()
         {
             const int limit = -10;
-            var expected = new int[] {};
+            var expected = new int[] { };
 
             var result = _math.GetOddNumbers(limit);
 

@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using TestNinja.Mocking;
+using TestNinja.Mocking.Product;
 
 namespace TestNinja.UnitTests.MockingTests
 {

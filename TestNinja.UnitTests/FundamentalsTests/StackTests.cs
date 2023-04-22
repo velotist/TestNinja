@@ -1,18 +1,18 @@
 ﻿using NUnit.Framework;
+using TestNinja.Fundamentals;
 
 namespace TestNinja.UnitTests.FundamentalsTests
 {
     [TestFixture]
     public class StackTests
     {
-        private Fundamentals.Stack<string> _stack;
-        
-
         [SetUp]
         public void SetUp()
         {
-            _stack = new Fundamentals.Stack<string>();
+            _stack = new Stack<string>();
         }
+
+        private Stack<string> _stack;
 
         [Test]
         public void Count_EmptyStack_ReturnsZero()
@@ -25,9 +25,9 @@ namespace TestNinja.UnitTests.FundamentalsTests
         {
             const string stackEntry = "Test";
             const int expectedCount = 1;
-            
+
             _stack.Push(stackEntry);
-            
+
             Assert.That(_stack.Count, Is.EqualTo(expectedCount));
         }
 
@@ -71,7 +71,7 @@ namespace TestNinja.UnitTests.FundamentalsTests
         [Test]
         public void Peek_EmptyStack_ThrowsException()
         {
-            Assert.That(()=> _stack.Peek(), Throws.InvalidOperationException);
+            Assert.That(() => _stack.Peek(), Throws.InvalidOperationException);
         }
 
         [Test]

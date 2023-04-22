@@ -4,7 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using TestNinja.Mocking;
+using TestNinja.Mocking.Booking;
+using TestNinja.Mocking.Interfaces;
 
 namespace TestNinja.UnitTests.MockingTests
 {
@@ -12,9 +13,6 @@ namespace TestNinja.UnitTests.MockingTests
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class BookingHelper_OverlappingBookingExistTests
     {
-        private Booking _existingBooking;
-        private Mock<IBookingRepository> _repository;
-
         [SetUp]
         public void SetUp()
         {
@@ -36,15 +34,18 @@ namespace TestNinja.UnitTests.MockingTests
                     .AsQueryable());
         }
 
+        private Booking _existingBooking;
+        private Mock<IBookingRepository> _repository;
+
         [Test]
         public void BookingStartsAndFinishesBeforeExistingBooking__ReturnEmptyString()
         {
             var result = BookingHelper.OverlappingBookingsExist(new Booking
-            {
-                Id = 1,
-                ArrivalDate = Before(_existingBooking.ArrivalDate, days: 2),
-                DepartureDate = Before(_existingBooking.ArrivalDate)
-            },
+                {
+                    Id = 1,
+                    ArrivalDate = Before(_existingBooking.ArrivalDate, 2),
+                    DepartureDate = Before(_existingBooking.ArrivalDate)
+                },
                 _repository.Object);
 
             Assert.That(result, Is.Empty);
@@ -57,8 +58,8 @@ namespace TestNinja.UnitTests.MockingTests
                 {
                     Id = 1,
                     ArrivalDate = Before(_existingBooking.ArrivalDate),
-                    DepartureDate = After(_existingBooking.ArrivalDate),
-            },
+                    DepartureDate = After(_existingBooking.ArrivalDate)
+                },
                 _repository.Object);
 
             Assert.That(result, Is.EqualTo(_existingBooking.Reference));
@@ -71,7 +72,7 @@ namespace TestNinja.UnitTests.MockingTests
                 {
                     Id = 1,
                     ArrivalDate = After(_existingBooking.ArrivalDate),
-                    DepartureDate = Before(_existingBooking.DepartureDate),
+                    DepartureDate = Before(_existingBooking.DepartureDate)
                 },
                 _repository.Object);
 
@@ -85,7 +86,7 @@ namespace TestNinja.UnitTests.MockingTests
                 {
                     Id = 1,
                     ArrivalDate = After(_existingBooking.ArrivalDate),
-                    DepartureDate = After(_existingBooking.DepartureDate),
+                    DepartureDate = After(_existingBooking.DepartureDate)
                 },
                 _repository.Object);
 
@@ -99,7 +100,7 @@ namespace TestNinja.UnitTests.MockingTests
                 {
                     Id = 1,
                     ArrivalDate = Before(_existingBooking.ArrivalDate),
-                    DepartureDate = After(_existingBooking.DepartureDate),
+                    DepartureDate = After(_existingBooking.DepartureDate)
                 },
                 _repository.Object);
 
@@ -113,7 +114,7 @@ namespace TestNinja.UnitTests.MockingTests
                 {
                     Id = 1,
                     ArrivalDate = After(_existingBooking.DepartureDate),
-                    DepartureDate = After(_existingBooking.DepartureDate, days: 2),
+                    DepartureDate = After(_existingBooking.DepartureDate, 2)
                 },
                 _repository.Object);
 

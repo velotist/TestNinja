@@ -1,21 +1,22 @@
 ﻿using Moq;
 using NUnit.Framework;
-using TestNinja.Mocking;
+using TestNinja.Mocking.Employee;
+using TestNinja.Mocking.Interfaces;
 
 namespace TestNinja.UnitTests.MockingTests
 {
     [TestFixture]
     public class EmployeeControllerTests
     {
-        private EmployeeController _controller;
-        private Mock<IEmployeeStorage> _storage;
-
         [SetUp]
         public void SetUp()
         {
             _storage = new Mock<IEmployeeStorage>();
             _controller = new EmployeeController(_storage.Object);
         }
+
+        private EmployeeController _controller;
+        private Mock<IEmployeeStorage> _storage;
 
         [Test]
         public void DeleteEmployee_GivenEmployee_ReturnRedirect()
