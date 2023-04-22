@@ -15,10 +15,10 @@ namespace TestNinja.Mocking
             IEmailSender emailSender,
             IExtraMessageBox extraMessageBox)
         {
-            _extraMessageBox = extraMessageBox;
-            _emailSender = emailSender;
-            _statementGenerator = statementGenerator;
             _unitOfWork = unitOfWork;
+            _statementGenerator = statementGenerator;
+            _emailSender = emailSender;
+            _extraMessageBox = extraMessageBox;
         }
 
         public void SendStatementEmails(DateTime statementDate)
